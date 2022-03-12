@@ -12,19 +12,23 @@
         <?php
 
             if(isset($_POST['acao'])){
-                //meu form foi enviado?
-
-                //se sim, validar.
+                
                 $firstName = strip_tags($_POST['firstName']);
                 $lastName = strip_tags($_POST['lastName']);
-                if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false){
-                  echo 'Email invalido';
-                }
                 $fone = $_POST['fone'];
                 $address = $_POST['address'];
                 $zip = $_POST['zip'];
+                if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false){
+                  echo ('Email invalido');
+                } else{
+                  $email = $_POST['email'];
+                  $pdo = new PDO('banco','login','senha');
+                  $sql = $pdo->prepare("INSERT INTO clientes VALUES (null,?,?,?,?)");
+                  $sql->execute(array($firstName, $lastName, $fone, $address, $zip));
+
+                  echo 'Inserido com sucesso';
+                }                
             }
-            echo $nome;
         ?>
 
     
