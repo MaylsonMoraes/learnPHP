@@ -12,7 +12,7 @@
         <?php
 
             if(isset($_POST['acao'])){
-                
+      
                 $firstName = strip_tags($_POST['firstName']);
                 $lastName = strip_tags($_POST['lastName']);
                 $fone = $_POST['fone'];
@@ -22,8 +22,8 @@
                   echo ('Email invalido');
                 } else{
                   $email = $_POST['email'];
-                  $pdo = new PDO('banco','login','senha');
-                  $sql = $pdo->prepare("INSERT INTO clientes VALUES (null,?,?,?,?)");
+                  $pdo = new PDO('mysql:host=localhost;dbname=chuteBoxe','root','password');
+                  $sql = $pdo->prepare("INSERT INTO cadastro VALUES (null,?,?,?,?,?)");
                   $sql->execute(array($firstName, $lastName, $fone, $address, $zip));
 
                   echo 'Inserido com sucesso';
